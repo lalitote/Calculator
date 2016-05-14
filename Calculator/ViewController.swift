@@ -9,12 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var display: UILabel!
     
-    var userIsInTheMiddleOfTypingANumber = false
-
-    @IBAction func touchDigit(sender: UIButton) {
+    @IBOutlet private weak var display: UILabel!
+    
+    private var userIsInTheMiddleOfTypingANumber = false
+    
+    @IBAction private func touchDigit(sender: UIButton) {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
             let textCurrentlyInDisplay = display.text!
@@ -23,15 +23,27 @@ class ViewController: UIViewController {
             display.text = digit
         }
         userIsInTheMiddleOfTypingANumber = true
-        
     }
-
-    @IBAction func performOperation(sender: UIButton) {
-        userIsInTheMiddleOfTypingANumber = false
-        if let matemathicalSymbol = sender.currentTitle {
-            if matemathicalSymbol == "π" {
-                display.text! = String(M_PI)
-            }
+    
+    private var displayValue: Double {
+        get {
+            return Double(display.text!)!
         }
+        set {
+            display.text = String(newValue)
+        }
+    }
+    
+    private var brain = CalculatorBrain()
+    
+    @IBAction private func performOperation(sender: UIButton) {
+        if userIsInTheMiddleOfTypingANumber {
+            brain.setOperand(displayValue)
+            userIsInTheMiddleOfTypingANumber = false
+        }
+        if let mathematicalSymbol = sender.currentTitle {
+            brain.performOperation(mathematicalSymbol)
+        }
+        displayValue = brain.result
     }
 }

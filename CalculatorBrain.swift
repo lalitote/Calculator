@@ -8,6 +8,10 @@
 
 import Foundation
 
+func factorial(op1: Double) -> Double {
+    return op1 == 0 ? 1 : op1 * factorial(op1 - 1)
+}
+
 class CalculatorBrain
 {
     private var accumulator = 0.0
@@ -20,14 +24,27 @@ class CalculatorBrain
         "π": Operation.Constant(M_PI),
         "e": Operation.Constant(M_E),
         "±": Operation.UnaryOperation({ -$0 }),
+        "x²": Operation.UnaryOperation({pow($0, 2)}),
+        "x³": Operation.UnaryOperation({pow($0, 3)}),
         "√": Operation.UnaryOperation(sqrt),
         "cos": Operation.UnaryOperation(cos),
+        "sin": Operation.UnaryOperation(sin),
+        "tan": Operation.UnaryOperation(tan),
+//        "sinh": Operation.UnaryOperation(sinh),
+//        "cosh": Operation.UnaryOperation(cosh),
+//        "tanh": Operation.UnaryOperation(tanh),
+        "log": Operation.UnaryOperation(log10),
+        "ln": Operation.UnaryOperation(log),
+        "x!": Operation.UnaryOperation(factorial),
+        "10ˣ": Operation.UnaryOperation( {pow(10, $0)} ),
         "×" : Operation.BinaryOperation { $0 * $1 },
         "÷" : Operation.BinaryOperation { $0 / $1 },
         "+" : Operation.BinaryOperation { $0 + $1 },
         "−" : Operation.BinaryOperation { $0 - $1 },
-        "=" : Operation.Equals
-    ]
+        "xʸ": Operation.BinaryOperation(pow),
+        "=" : Operation.Equals,
+        
+        ]
     
     enum Operation {
         case Constant(Double)

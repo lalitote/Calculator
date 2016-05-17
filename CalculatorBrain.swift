@@ -16,8 +16,11 @@ class CalculatorBrain
 {
     private var accumulator = 0.0
     
+    private var description = " "
+    
     func setOperand(operand: Double) {
         accumulator = operand
+        description += "\(operand)"
     }
     
     var operations: Dictionary<String, Operation> = [
@@ -42,8 +45,7 @@ class CalculatorBrain
         "+" : Operation.BinaryOperation { $0 + $1 },
         "−" : Operation.BinaryOperation { $0 - $1 },
         "xʸ": Operation.BinaryOperation(pow),
-        "=" : Operation.Equals,
-        
+        "=" : Operation.Equals
         ]
     
     enum Operation {
@@ -59,11 +61,14 @@ class CalculatorBrain
             switch operation {
             case .Constant(let value):
                 accumulator = value
+                description += "\(result)"
             case .UnaryOperation(let function):
                 accumulator = function(accumulator)
+                description += "\(result)"
             case .BinaryOperation(let function):
                 executePendingBinaryOperation()
                 pending = PendingBinaryOperationInfo(binaryFunction: function, firstOperand: accumulator)
+                description += symbol
             case .Equals:
                 executePendingBinaryOperation()
             }

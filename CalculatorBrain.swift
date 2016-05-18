@@ -18,6 +18,10 @@ class CalculatorBrain
     
     private var description = " "
     
+    private var isPartialResult: Bool {
+        return pending != nil
+    }
+    
     func setOperand(operand: Double) {
         accumulator = operand
         description += "\(operand)"

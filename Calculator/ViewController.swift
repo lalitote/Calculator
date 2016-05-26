@@ -20,6 +20,20 @@ class ViewController: UIViewController {
         brain = CalculatorBrain()
         display.text = "0"
         history.text = " "
+        userIsInTheMiddleOfTypingANumber = false
+    }
+    
+    @IBAction func backspace(sender: UIButton) {
+        if userIsInTheMiddleOfTypingANumber {
+            if var numberOnTheDisplay = display.text {
+                numberOnTheDisplay.removeAtIndex(numberOnTheDisplay.endIndex.predecessor())
+                if numberOnTheDisplay.isEmpty {
+                    numberOnTheDisplay = "0"
+                    userIsInTheMiddleOfTypingANumber = false
+                }
+                display.text = numberOnTheDisplay
+            }
+        }
     }
     
     @IBAction private func touchDigit(sender: UIButton) {

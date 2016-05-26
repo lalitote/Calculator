@@ -12,7 +12,15 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var display: UILabel!
     
+    @IBOutlet weak var history: UILabel!
+    
     private var userIsInTheMiddleOfTypingANumber = false
+    
+    @IBAction private func clearEverything() {
+        brain = CalculatorBrain()
+        display.text = "0"
+        history.text = " "
+    }
     
     @IBAction private func touchDigit(sender: UIButton) {
         let digit = sender.currentTitle!
@@ -39,6 +47,8 @@ class ViewController: UIViewController {
         }
         set {
             display.text = String(newValue)
+            history.text = brain.description
+                + (brain.isPartialResult ? "..." : "=")
         }
     }
     

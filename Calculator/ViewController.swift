@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         brain = CalculatorBrain()
         display.text = "0"
         history.text = " "
-        userIsInTheMiddleOfTypingANumber = false
+        displayValue = nil
     }
     
     @IBAction func backspace(sender: UIButton) {
@@ -55,14 +55,23 @@ class ViewController: UIViewController {
         userIsInTheMiddleOfTypingANumber = true
     }
     
-    private var displayValue: Double {
+    private var displayValue: Double? {
         get {
-            return Double(display.text!)!
+            if let text = display.text, value = Double(text) {
+            return value
+            }
+            return nil
         }
         set {
-            display.text = String(newValue)
+            if let value = newValue {
+            display.text = String(value)
             history.text = brain.description
                 + (brain.isPartialResult ? "..." : "=")
+            } else {
+                display.text = "0"
+                history.text = " "
+                userIsInTheMiddleOfTypingANumber = false
+            }
         }
     }
     
@@ -70,8 +79,9 @@ class ViewController: UIViewController {
     
     @IBAction private func performOperation(sender: UIButton) {
         if userIsInTheMiddleOfTypingANumber {
-            brain.setOperand(displayValue)
-            userIsInTheMiddleOfTypingANumber = false
+                brain.setOperand(displayValue!)
+                userIsInTheMiddleOfTypingANumber = false
+            
         }
         if let mathematicalSymbol = sender.currentTitle {
             brain.performOperation(mathematicalSymbol)

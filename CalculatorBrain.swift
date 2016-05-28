@@ -72,7 +72,8 @@ class CalculatorBrain
         "+" : Operation.BinaryOperation (+, { $0 + "+" + $1 }, 0),
         "−" : Operation.BinaryOperation (-, { $0 + "-" + $1 }, 0),
         "xʸ": Operation.BinaryOperation(pow, {$0 + "^" + $1 }, 2),
-        "=" : Operation.Equals
+        "=" : Operation.Equals,
+        "rand": Operation.Random(drand48, "rand()")
         ]
     
     enum Operation {
@@ -80,6 +81,7 @@ class CalculatorBrain
         case UnaryOperation((Double) -> Double, (String) -> String)
         case BinaryOperation((Double, Double) -> Double, (String, String) -> String, Int)
         case Equals
+        case Random(() -> Double, String)
     }
     
     
@@ -101,6 +103,9 @@ class CalculatorBrain
                 pending = PendingBinaryOperationInfo(binaryFunction: function, firstOperand: accumulator, descriptionFunction: descriptionFunction, descriptionOperand: descriptionAccumulator)
             case .Equals:
                 executePendingBinaryOperation()
+            case .Random(let function, let descriptionRandom):
+                accumulator = function()
+                descriptionAccumulator = descriptionRandom
             }
         }
     }

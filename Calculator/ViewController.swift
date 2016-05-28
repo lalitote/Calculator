@@ -58,15 +58,18 @@ class ViewController: UIViewController {
     private var displayValue: Double? {
         get {
             if let text = display.text, value = Double(text) {
-            return value
+                return value
             }
             return nil
         }
         set {
             if let value = newValue {
-            display.text = String(value)
-            history.text = brain.description
-                + (brain.isPartialResult ? "..." : "=")
+                let formatter = NSNumberFormatter()
+                formatter.numberStyle = .DecimalStyle
+                formatter.maximumFractionDigits = 6
+                display.text = formatter.stringFromNumber(value)
+                history.text = brain.description
+                    + (brain.isPartialResult ? "..." : "=")
             } else {
                 display.text = "0"
                 history.text = " "

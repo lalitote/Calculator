@@ -44,7 +44,10 @@ class CalculatorBrain
     
     func setOperand(operand: Double) {
         accumulator = operand
-        descriptionAccumulator = String(operand)
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        formatter.maximumFractionDigits = 6
+        descriptionAccumulator = formatter.stringFromNumber(operand)!
     }
     
     var operations: Dictionary<String, Operation> = [

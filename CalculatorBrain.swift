@@ -16,6 +16,8 @@ class CalculatorBrain
 {
     private var accumulator = 0.0
     
+    private var internalProgram = [AnyObject]()
+    
     private var descriptionAccumulator = "0" {
         didSet {
             if pending == nil {
@@ -44,11 +46,19 @@ class CalculatorBrain
     
     func setOperand(operand: Double) {
         accumulator = operand
+        internalProgram.append(operand)
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .DecimalStyle
         formatter.maximumFractionDigits = 6
         descriptionAccumulator = formatter.stringFromNumber(operand)!
     }
+    
+    func setOperand(variableName: String) {
+        accumulator = Double(variableName)!
+        internalProgram.append(variableName)
+    }
+    
+    var variableValues = [String:Double]()
     
     var operations: Dictionary<String, Operation> = [
         "π": Operation.Constant(M_PI),
@@ -86,6 +96,7 @@ class CalculatorBrain
     
     
     func performOperation(symbol: String) {
+        internalProgram.append(symbol)
         if let operation = operations[symbol] {
             switch operation {
             case .Constant(let value):
@@ -126,6 +137,33 @@ class CalculatorBrain
         var descriptionFunction: (String, String) -> String
         var descriptionOperand: String
     }
+    
+    typealias PropertyList = AnyObject
+    
+    var program: PropertyList {
+        get {
+            return internalProgram
+        }
+        set {
+            clear()
+            if let arrayOfOps = newValue as? [AnyObject] {
+                for op in arrayOfOps {
+                    if let operand = op as? Double {
+                        setOperand(operand)
+                    } else if let operation = op as? String {
+                        performOperation(operation)
+                    }
+                }
+            }
+        }
+    }
+    
+    func clear() {
+        accumulator = 0.0
+        pending = nil
+        internalProgram.removeAll()
+    }
+    
     
     var result: Double {
         get {

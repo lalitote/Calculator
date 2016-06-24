@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     @IBAction private func clearEverything() {
         displayValue = nil
         brain.clear()
+        brain.variableValues = [:]
     }
     
     @IBAction func backspace(sender: UIButton) {
@@ -35,11 +36,10 @@ class ViewController: UIViewController {
     }
     
     var savedProgram: CalculatorBrain.PropertyList?
-//    
+
     @IBAction func memory(sender: UIButton) {
         userIsInTheMiddleOfTypingANumber = false
         brain.variableValues = ["M":displayValue!]
-//        display.text = String(brain.result)
         displayValue = brain.result
     }
 

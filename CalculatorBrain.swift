@@ -165,7 +165,6 @@ class CalculatorBrain
                             performOperation(symbol)
                         } else {
                             // symbol is a variable
-//                            setOperand(variableValues[symbol]!)
                             setOperand(symbol)
                         }
                     }

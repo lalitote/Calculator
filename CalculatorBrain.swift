@@ -59,6 +59,7 @@ class CalculatorBrain
         accumulator = variableValues[variableName] ?? 0.0
         descriptionAccumulator = variableName
         internalProgram.append(variableName)
+        
     }
     
     var variableValues = [String:Double]() {
@@ -90,7 +91,8 @@ class CalculatorBrain
         "−" : Operation.BinaryOperation (-, { $0 + "-" + $1 }, 0),
         "xʸ": Operation.BinaryOperation(pow, {$0 + "^" + $1 }, 2),
         "=" : Operation.Equals,
-        "rand": Operation.Random(drand48, "rand()")
+        "rand": Operation.Random(drand48, "rand()"),
+        "%": Operation.UnaryOperation({$0 / 100}, { $0 + "%"})
         ]
     
     enum Operation {
@@ -163,6 +165,7 @@ class CalculatorBrain
                             performOperation(symbol)
                         } else {
                             // symbol is a variable
+//                            setOperand(variableValues[symbol]!)
                             setOperand(symbol)
                         }
                     }

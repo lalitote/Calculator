@@ -17,10 +17,8 @@ class ViewController: UIViewController {
     private var userIsInTheMiddleOfTypingANumber = false
     
     @IBAction private func clearEverything() {
-        brain = CalculatorBrain()
-        display.text = "0"
-        history.text = " "
         displayValue = nil
+        brain.clear()
     }
     
     @IBAction func backspace(sender: UIButton) {
@@ -34,6 +32,20 @@ class ViewController: UIViewController {
                 display.text = numberOnTheDisplay
             }
         }
+    }
+    
+    var savedProgram: CalculatorBrain.PropertyList?
+//    
+    @IBAction func memory(sender: UIButton) {
+        userIsInTheMiddleOfTypingANumber = false
+        brain.variableValues = ["M":displayValue!]
+//        display.text = String(brain.result)
+        displayValue = brain.result
+    }
+
+    @IBAction func variableM(sender: UIButton) {
+        brain.setOperand(sender.currentTitle!)
+        savedProgram = brain.program
     }
     
     @IBAction private func touchDigit(sender: UIButton) {
@@ -64,12 +76,8 @@ class ViewController: UIViewController {
         }
         set {
             if let value = newValue {
-                let formatter = NSNumberFormatter()
-                formatter.numberStyle = .DecimalStyle
-                formatter.maximumFractionDigits = 6
-                display.text = formatter.stringFromNumber(value)
-                history.text = brain.description
-                    + (brain.isPartialResult ? "..." : "=")
+                display.text = brain.formatter.stringFromNumber(value)
+                history.text = brain.description + (brain.isPartialResult ? "..." : "=")
             } else {
                 display.text = "0"
                 history.text = " "

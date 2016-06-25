@@ -181,6 +181,12 @@ class CalculatorBrain
         internalProgram.removeAll()
     }
     
+    func undo() {
+        internalProgram.removeLast()
+        program = internalProgram
+    }
+        
+    
     
     var result: Double {
         get {

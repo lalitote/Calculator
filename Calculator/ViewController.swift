@@ -32,6 +32,9 @@ class ViewController: UIViewController {
                 }
                 display.text = numberOnTheDisplay
             }
+        } else {
+            brain.undo()
+            displayValue = brain.result
         }
     }
     

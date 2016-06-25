@@ -15,9 +15,9 @@ func factorial(op1: Double) -> Double {
 class CalculatorBrain
 {
     private var accumulator = 0.0
-    
     private var internalProgram = [AnyObject]()
     
+    private var currentPrecedence = Int.max
     private var descriptionAccumulator = "0" {
         didSet {
             if pending == nil {
@@ -36,8 +36,6 @@ class CalculatorBrain
         }
     }
     
-    private var currentPrecedence = Int.max
-    
     var isPartialResult: Bool {
         get {
             return pending != nil
@@ -47,18 +45,28 @@ class CalculatorBrain
     func setOperand(operand: Double) {
         accumulator = operand
         internalProgram.append(operand)
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .DecimalStyle
-        formatter.maximumFractionDigits = 6
         descriptionAccumulator = formatter.stringFromNumber(operand)!
     }
     
+    let formatter:NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        formatter.maximumFractionDigits = 6
+        return formatter
+    }()
+    
     func setOperand(variableName: String) {
-        accumulator = Double(variableName)!
+        accumulator = variableValues[variableName] ?? 0.0
+        descriptionAccumulator = variableName
         internalProgram.append(variableName)
+        
     }
     
-    var variableValues = [String:Double]()
+    var variableValues = [String:Double]() {
+        didSet {
+            program = internalProgram
+        }
+    }
     
     var operations: Dictionary<String, Operation> = [
         "π": Operation.Constant(M_PI),
@@ -83,7 +91,8 @@ class CalculatorBrain
         "−" : Operation.BinaryOperation (-, { $0 + "-" + $1 }, 0),
         "xʸ": Operation.BinaryOperation(pow, {$0 + "^" + $1 }, 2),
         "=" : Operation.Equals,
-        "rand": Operation.Random(drand48, "rand()")
+        "rand": Operation.Random(drand48, "rand()"),
+        "%": Operation.UnaryOperation({$0 / 100}, { $0 + "%"})
         ]
     
     enum Operation {
@@ -150,8 +159,14 @@ class CalculatorBrain
                 for op in arrayOfOps {
                     if let operand = op as? Double {
                         setOperand(operand)
-                    } else if let operation = op as? String {
-                        performOperation(operation)
+                    } else if let symbol = op as? String {
+                        if operations[symbol] != nil {
+                            //symbol is an operation
+                            performOperation(symbol)
+                        } else {
+                            // symbol is a variable
+                            setOperand(symbol)
+                        }
                     }
                 }
             }
@@ -161,8 +176,16 @@ class CalculatorBrain
     func clear() {
         accumulator = 0.0
         pending = nil
+        descriptionAccumulator = " "
+        currentPrecedence = Int.max
         internalProgram.removeAll()
     }
+    
+    func undo() {
+        internalProgram.removeLast()
+        program = internalProgram
+    }
+        
     
     
     var result: Double {

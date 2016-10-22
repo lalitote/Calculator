@@ -45,7 +45,7 @@ class CalculatorBrain
     func setOperand(_ operand: Double) {
         accumulator = operand
         internalProgram.append(operand as AnyObject)
-        descriptionAccumulator = formatter.string(from: NSNumber(operand))!
+        descriptionAccumulator = formatter.string(from: NSNumber(value: operand))!
     }
     
     let formatter:NumberFormatter = {

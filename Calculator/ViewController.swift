@@ -79,7 +79,7 @@ class ViewController: UIViewController {
         }
         set {
             if let value = newValue {
-                display.text = brain.formatter.string(from: value)
+                display.text = brain.formatter.string(from: NSNumber(value: value))
                 history.text = brain.description + (brain.isPartialResult ? "..." : "=")
             } else {
                 display.text = "0"

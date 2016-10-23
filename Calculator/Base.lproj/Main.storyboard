@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="05G-TE-l1M">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -7,6 +7,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Split View Controller-->
+        <scene sceneID="GAV-WH-odI">
+            <objects>
+                <splitViewController id="05G-TE-l1M" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="Yvg-Nr-pob" kind="relationship" relationship="masterViewController" id="BLO-uM-SBv"/>
+                        <segue destination="9aw-Wa-Z1n" kind="relationship" relationship="detailViewController" id="DpX-xD-EnF"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jxt-Dv-TK2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-713" y="418"/>
+        </scene>
         <!--Calculator View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -19,14 +32,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MHv-lA-xiZ">
-                                <frame key="frameInset" minX="20" minY="20" width="343" height="639"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MHv-lA-xiZ">
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="h23-uZ-jO6">
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Onp-IK-U1L">
                                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="GRAPH"/>
+                                                <connections>
+                                                    <segue destination="9aw-Wa-Z1n" kind="showDetail" identifier="ShowGraph" action="showViewController:sender:" id="ZOI-XZ-WNU"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="iED-VK-OPg">
                                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -370,6 +385,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="MHv-lA-xiZ" secondAttribute="trailing" id="Lm9-X5-Z0X"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="X4k-ux-Wti"/>
                     <connections>
                         <outlet property="display" destination="OB8-sz-vCn" id="QL5-TI-QyX"/>
                         <outlet property="history" destination="iED-VK-OPg" id="9ZA-1s-KsQ"/>
@@ -377,7 +393,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-31" y="384"/>
+            <point key="canvasLocation" x="1231.2" y="154.27286356821591"/>
+        </scene>
+        <!--Graph View Controller-->
+        <scene sceneID="Fce-CP-4cZ">
+            <objects>
+                <viewController id="9aw-Wa-Z1n" customClass="GraphViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uwx-IT-0Yl"/>
+                        <viewControllerLayoutGuide type="bottom" id="ENs-vt-ThO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xf0-oq-QwM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIu-xa-QuT">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="IIu-xa-QuT" secondAttribute="trailing" id="92O-1T-lR0"/>
+                            <constraint firstItem="IIu-xa-QuT" firstAttribute="bottom" secondItem="ENs-vt-ThO" secondAttribute="top" id="AJA-Jr-dJk"/>
+                            <constraint firstItem="IIu-xa-QuT" firstAttribute="top" secondItem="Xf0-oq-QwM" secondAttribute="top" id="WaJ-HK-ZKC"/>
+                            <constraint firstItem="IIu-xa-QuT" firstAttribute="leading" secondItem="Xf0-oq-QwM" secondAttribute="leading" id="lCf-Fr-zdB"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KeN-5j-mZt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="564" y="1023.2383808095952"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="awJ-oe-4ng">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Yvg-Nr-pob" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iKT-nW-egQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZbO-SR-d2d"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nXp-X6-ix9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="292" y="154.27286356821591"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ZOI-XZ-WNU"/>
+    </inferredMetricsTieBreakers>
 </document>

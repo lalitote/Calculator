@@ -56,6 +56,8 @@ class AxesDrawer
     }
 
     // the rest of this class is private
+    
+    
 
     private func drawHashmarksInRect(bounds: CGRect, origin: CGPoint, pointsPerUnit: CGFloat)
     {
@@ -84,7 +86,7 @@ class AxesDrawer
             
             // now create a bounding box inside whose edges those four hashmarks lie
             let bboxSize = pointsPerHashmark * startingHashmarkRadius * 2
-            var bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize))
+            let bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize))
 
             // formatter for the hashmark labels
             let formatter = NumberFormatter()
@@ -94,18 +96,20 @@ class AxesDrawer
             // radiate the bbox out until the hashmarks are further out than the bounds
             while !bbox.contains(bounds)
             {
-                let label = formatter.string(from: ((origin.x-bbox.minX)/pointsPerUnit))!
+                let labelX = ((origin.x-bbox.minX)/pointsPerUnit) as NSNumber
+                let label = formatter.string(from: labelX)!
+            
                 if let leftHashmarkPoint = alignedPoint(x: bbox.minX, y: origin.y, insideBounds:bounds) {
-                    drawHashmarkAtLocation(leftHashmarkPoint, .Top("-\(label)"))
+                    drawHashmarkAtLocation(location: leftHashmarkPoint, .Top("-\(label)"))
                 }
                 if let rightHashmarkPoint = alignedPoint(x: bbox.maxX, y: origin.y, insideBounds:bounds) {
-                    drawHashmarkAtLocation(rightHashmarkPoint, .Top(label))
+                    drawHashmarkAtLocation(location: rightHashmarkPoint, .Top(label))
                 }
                 if let topHashmarkPoint = alignedPoint(x: origin.x, y: bbox.minY, insideBounds:bounds) {
-                    drawHashmarkAtLocation(topHashmarkPoint, .Left(label))
+                    drawHashmarkAtLocation(location: topHashmarkPoint, .Left(label))
                 }
                 if let bottomHashmarkPoint = alignedPoint(x: origin.x, y: bbox.maxY, insideBounds:bounds) {
-                    drawHashmarkAtLocation(bottomHashmarkPoint, .Left("-\(label)"))
+                    drawHashmarkAtLocation(location: bottomHashmarkPoint, .Left("-\(label)"))
                 }
                 bbox.insetBy(dx: -pointsPerHashmark, dy: -pointsPerHashmark)
             }
@@ -116,10 +120,10 @@ class AxesDrawer
     {
         var dx: CGFloat = 0, dy: CGFloat = 0
         switch text {
-            case .Left: dx = Constants.HashmarkSize / 2
-            case .Right: dx = Constants.HashmarkSize / 2
-            case .Top: dy = Constants.HashmarkSize / 2
-            case .Bottom: dy = Constants.HashmarkSize / 2
+        case .Left: dx = Constants.HashmarkSize / 2
+        case .Right: dx = Constants.HashmarkSize / 2
+        case .Top: dy = Constants.HashmarkSize / 2
+        case .Bottom: dy = Constants.HashmarkSize / 2
         }
         
         let path = UIBezierPath()

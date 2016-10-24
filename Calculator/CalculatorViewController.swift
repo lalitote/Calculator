@@ -102,4 +102,22 @@ class CalculatorViewController: UIViewController {
         }
         displayValue = brain.result
     }
+    
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination = segue.destination as UIViewController
+        if let nc = destination as? UINavigationController {
+            destination = nc.visibleViewController!
+        }
+        if let gvc = destination as? GraphViewController {
+            if let identifier = segue.identifier {
+                switch identifier {
+                case "plot graph":
+                    gvc.title = brain.description == "" ? "Graph" : brain.description
+                default:
+                    break
+                }
+            }
+        }
+    }
+
 }

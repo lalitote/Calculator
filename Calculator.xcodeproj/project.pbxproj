@@ -17,6 +17,7 @@
 		EA604B5B1CE2691600443F8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA604B591CE2691600443F8E /* LaunchScreen.storyboard */; };
 		EA604B661CE2691600443F8E /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA604B651CE2691600443F8E /* CalculatorTests.swift */; };
 		EA604B711CE2691600443F8E /* CalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA604B701CE2691600443F8E /* CalculatorUITests.swift */; };
+		EA7914661DBF5243002DCC86 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7914651DBF5243002DCC86 /* GraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		EA604B6C1CE2691600443F8E /* CalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA604B701CE2691600443F8E /* CalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorUITests.swift; sourceTree = "<group>"; };
 		EA604B721CE2691600443F8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA7914651DBF5243002DCC86 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				EA604B521CE2691600443F8E /* CalculatorViewController.swift */,
 				EA57F02A1DBCB9320070D5B2 /* GraphViewController.swift */,
 				EA604B541CE2691600443F8E /* Main.storyboard */,
+				EA7914651DBF5243002DCC86 /* GraphView.swift */,
 				EA57F02C1DBCBEB60070D5B2 /* AxesDrawer.swift */,
 				EA604B7E1CE26A5500443F8E /* Supporting Files */,
 			);
@@ -281,6 +284,7 @@
 				EA57F02D1DBCBEB60070D5B2 /* AxesDrawer.swift in Sources */,
 				EA604B531CE2691600443F8E /* CalculatorViewController.swift in Sources */,
 				EA604B511CE2691600443F8E /* AppDelegate.swift in Sources */,
+				EA7914661DBF5243002DCC86 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

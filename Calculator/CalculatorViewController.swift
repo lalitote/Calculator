@@ -104,18 +104,28 @@ class CalculatorViewController: UIViewController {
     }
     
     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var destination = segue.destination as UIViewController
-        if let nc = destination as? UINavigationController {
-            destination = nc.visibleViewController!
-        }
-        if let gvc = destination as? GraphViewController {
-            if let identifier = segue.identifier {
-                switch identifier {
-                case "plot graph":
-                    gvc.title = brain.description == "" ? "Graph" : brain.description
-                default:
-                    break
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "ShowGraph":
+                guard !brain.isPartialResult else {
+                    NSLog("Calculator: Trying to draw a partial result")
+                    return
                 }
+                
+                var destination = segue.destination as UIViewController
+                if let nc = destination as? UINavigationController {
+                    destination = nc.visibleViewController ?? destination
+                }
+                if let gvc = destination as? GraphViewController {
+                    gvc.navigationItem.title = brain.description
+                    gvc.function = {
+                        (x: CGFloat) -> Double in self.brain.variableValues["M"] = Double(x)
+                        self.brain.program = self.brain.program
+                        return self.brain.result
+                    }
+                }
+            default: break
+                
             }
         }
     }

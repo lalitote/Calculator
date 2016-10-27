@@ -8,9 +8,15 @@
 
 import UIKit
 
-class GraphViewController: UIViewController {
+class GraphViewController: UIViewController, GraphViewDataSource {
 
     // MARK: Properties
+    
+    @IBOutlet weak var graphView: GraphView! {
+        didSet {
+            graphView.dataSource = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +27,17 @@ class GraphViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Actions
+    
+    var function: ((CGFloat) -> Double)?
+    
+    func y(x: CGFloat) -> CGFloat? {
+        if let function = function {
+            return CGFloat(function(x))
+        }
+        return nil
     }
     
     /*

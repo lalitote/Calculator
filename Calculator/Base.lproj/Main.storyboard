@@ -13,14 +13,14 @@
                 <splitViewController id="05G-TE-l1M" sceneMemberID="viewController">
                     <connections>
                         <segue destination="Yvg-Nr-pob" kind="relationship" relationship="masterViewController" id="BLO-uM-SBv"/>
-                        <segue destination="9aw-Wa-Z1n" kind="relationship" relationship="detailViewController" id="DpX-xD-EnF"/>
+                        <segue destination="MTC-Gq-mCt" kind="relationship" relationship="detailViewController" id="DpX-xD-EnF"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jxt-Dv-TK2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-713" y="418"/>
         </scene>
-        <!--Calculator View Controller-->
+        <!--Calculator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CalculatorViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -40,7 +40,7 @@
                                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="GRAPH"/>
                                                 <connections>
-                                                    <segue destination="9aw-Wa-Z1n" kind="showDetail" identifier="ShowGraph" action="showViewController:sender:" id="ZOI-XZ-WNU"/>
+                                                    <segue destination="MTC-Gq-mCt" kind="showDetail" identifier="ShowGraph" action="showViewController:sender:" id="ZOI-XZ-WNU"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="iED-VK-OPg">
@@ -385,7 +385,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="MHv-lA-xiZ" secondAttribute="trailing" id="Lm9-X5-Z0X"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="X4k-ux-Wti"/>
+                    <navigationItem key="navigationItem" title="Calculator" id="X4k-ux-Wti"/>
                     <connections>
                         <outlet property="display" destination="OB8-sz-vCn" id="QL5-TI-QyX"/>
                         <outlet property="history" destination="iED-VK-OPg" id="9ZA-1s-KsQ"/>
@@ -395,7 +395,7 @@
             </objects>
             <point key="canvasLocation" x="1231.2" y="154.27286356821591"/>
         </scene>
-        <!--Graph View Controller-->
+        <!--Graph-->
         <scene sceneID="Fce-CP-4cZ">
             <objects>
                 <viewController id="9aw-Wa-Z1n" customClass="GraphViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -408,21 +408,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIu-xa-QuT" customClass="GraphView" customModule="Calculator" customModuleProvider="target">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="IIu-xa-QuT" secondAttribute="trailing" id="92O-1T-lR0"/>
-                            <constraint firstItem="IIu-xa-QuT" firstAttribute="bottom" secondItem="ENs-vt-ThO" secondAttribute="top" id="AJA-Jr-dJk"/>
-                            <constraint firstItem="IIu-xa-QuT" firstAttribute="top" secondItem="Xf0-oq-QwM" secondAttribute="top" id="WaJ-HK-ZKC"/>
-                            <constraint firstItem="IIu-xa-QuT" firstAttribute="leading" secondItem="Xf0-oq-QwM" secondAttribute="leading" id="lCf-Fr-zdB"/>
+                            <constraint firstItem="IIu-xa-QuT" firstAttribute="leading" secondItem="Xf0-oq-QwM" secondAttribute="leading" id="Qbv-eF-34G"/>
+                            <constraint firstItem="IIu-xa-QuT" firstAttribute="bottom" secondItem="ENs-vt-ThO" secondAttribute="top" id="ePG-xe-zb0"/>
+                            <constraint firstItem="IIu-xa-QuT" firstAttribute="top" secondItem="uwx-IT-0Yl" secondAttribute="bottom" id="oDs-pU-F7f"/>
+                            <constraint firstAttribute="trailing" secondItem="IIu-xa-QuT" secondAttribute="trailing" id="oEg-tI-AzE"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Graph" id="Dw4-Xq-dw5"/>
+                    <connections>
+                        <outlet property="graphView" destination="IIu-xa-QuT" id="fKO-YQ-oex"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KeN-5j-mZt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="564" y="1023.2383808095952"/>
+            <point key="canvasLocation" x="1503.2" y="1023.2383808095952"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="awJ-oe-4ng">
@@ -441,6 +445,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXp-X6-ix9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="292" y="154.27286356821591"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6S0-kV-uQP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MTC-Gq-mCt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="F1e-kY-f7b">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9aw-Wa-Z1n" kind="relationship" relationship="rootViewController" id="KgH-zA-jC5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g3x-K9-nZC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="473" y="1102"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

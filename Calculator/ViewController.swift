@@ -10,22 +10,22 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet private weak var display: UILabel!
+    @IBOutlet fileprivate weak var display: UILabel!
     
     @IBOutlet weak var history: UILabel!
     
-    private var userIsInTheMiddleOfTypingANumber = false
+    fileprivate var userIsInTheMiddleOfTypingANumber = false
     
-    @IBAction private func clearEverything() {
+    @IBAction fileprivate func clearEverything() {
         displayValue = nil
         brain.clear()
         brain.variableValues = [:]
     }
     
-    @IBAction func backspace(sender: UIButton) {
+    @IBAction func backspace(_ sender: UIButton) {
         if userIsInTheMiddleOfTypingANumber {
             if var numberOnTheDisplay = display.text {
-                numberOnTheDisplay.removeAtIndex(numberOnTheDisplay.endIndex.predecessor())
+                numberOnTheDisplay.remove(at: numberOnTheDisplay.characters.index(before: numberOnTheDisplay.endIndex))
                 if numberOnTheDisplay.isEmpty {
                     numberOnTheDisplay = "0"
                     userIsInTheMiddleOfTypingANumber = false
@@ -40,21 +40,21 @@ class ViewController: UIViewController {
     
     var savedProgram: CalculatorBrain.PropertyList?
 
-    @IBAction func memory(sender: UIButton) {
+    @IBAction func memory(_ sender: UIButton) {
         userIsInTheMiddleOfTypingANumber = false
         brain.variableValues = ["M":displayValue!]
         displayValue = brain.result
     }
 
-    @IBAction func variableM(sender: UIButton) {
+    @IBAction func variableM(_ sender: UIButton) {
         brain.setOperand(sender.currentTitle!)
         savedProgram = brain.program
     }
     
-    @IBAction private func touchDigit(sender: UIButton) {
+    @IBAction fileprivate func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
-            if display.text!.rangeOfString(".") != nil && digit == "." {
+            if display.text!.range(of: ".") != nil && digit == "." {
                 return
             } else {
                 let textCurrentlyInDisplay = display.text!
@@ -70,16 +70,16 @@ class ViewController: UIViewController {
         userIsInTheMiddleOfTypingANumber = true
     }
     
-    private var displayValue: Double? {
+    fileprivate var displayValue: Double? {
         get {
-            if let text = display.text, value = Double(text) {
+            if let text = display.text, let value = Double(text) {
                 return value
             }
             return nil
         }
         set {
             if let value = newValue {
-                display.text = brain.formatter.stringFromNumber(value)
+                display.text = brain.formatter.string(from: NSNumber(value: value))
                 history.text = brain.description + (brain.isPartialResult ? "..." : "=")
             } else {
                 display.text = "0"
@@ -89,9 +89,9 @@ class ViewController: UIViewController {
         }
     }
     
-    private var brain = CalculatorBrain()
+    fileprivate var brain = CalculatorBrain()
     
-    @IBAction private func performOperation(sender: UIButton) {
+    @IBAction fileprivate func performOperation(_ sender: UIButton) {
         if userIsInTheMiddleOfTypingANumber {
                 brain.setOperand(displayValue!)
                 userIsInTheMiddleOfTypingANumber = false

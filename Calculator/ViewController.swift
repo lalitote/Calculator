@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         } else {
             brain.undo()
             displayValue = brain.result
+            history.text = brain.description
         }
     }
     

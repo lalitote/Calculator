@@ -182,12 +182,13 @@ class CalculatorBrain
     }
     
     func undo() {
-        internalProgram.removeLast()
-        program = internalProgram as CalculatorBrain.PropertyList
+        if !internalProgram.isEmpty {
+            internalProgram.removeLast()
+            program = internalProgram as CalculatorBrain.PropertyList
+        }
+        
     }
         
-    
-    
     var result: Double {
         get {
             return accumulator

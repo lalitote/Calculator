@@ -10,7 +10,6 @@
         <!--Navigation Controller-->
         <scene sceneID="ue9-cc-m3V">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JIC-dG-u7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="HLo-20-alE" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3vm-wm-4HU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -20,6 +19,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="HfD-Rd-cWe"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JIC-dG-u7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-996" y="466"/>
         </scene>
@@ -424,7 +424,18 @@
                     <view key="view" contentMode="scaleToFill" id="usc-6L-pza">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A0S-y8-XkH" customClass="GraphView" customModule="Calculator" customModuleProvider="target">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="A0S-y8-XkH" firstAttribute="leading" secondItem="usc-6L-pza" secondAttribute="leading" id="Hgq-yW-VOJ"/>
+                            <constraint firstItem="A0S-y8-XkH" firstAttribute="bottom" secondItem="c0L-bO-zsP" secondAttribute="top" id="ZX4-OU-UbZ"/>
+                            <constraint firstAttribute="trailing" secondItem="A0S-y8-XkH" secondAttribute="trailing" id="uBy-3X-aCa"/>
+                            <constraint firstItem="A0S-y8-XkH" firstAttribute="top" secondItem="hZe-7H-fYJ" secondAttribute="bottom" id="za6-Cn-sv2"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="l9O-7x-1ap"/>
                 </viewController>

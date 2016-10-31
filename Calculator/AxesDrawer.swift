@@ -84,8 +84,7 @@ class AxesDrawer
             
             // now create a bounding box inside whose edges those four hashmarks lie
             let bboxSize = pointsPerHashmark * startingHashmarkRadius * 2
-            var bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize))
-
+            let bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize))
             // formatter for the hashmark labels
             let formatter = NumberFormatter()
             formatter.maximumFractionDigits = Int(-log10(Double(unitsPerHashmark)))
@@ -174,8 +173,10 @@ class AxesDrawer
     private func alignedPoint(x: CGFloat, y: CGFloat, insideBounds: CGRect? = nil) -> CGPoint?
     {
         let point = CGPoint(x: align(coordinate: x), y: align(coordinate: y))
-        if let permissibleBounds = insideBounds, !permissibleBounds.contains(point) {
-            return nil
+        if let permissibleBounds = insideBounds {
+            if !permissibleBounds.contains(point) {
+                return nil
+            }
         }
         return point
     }

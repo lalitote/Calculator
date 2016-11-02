@@ -8,8 +8,38 @@
 
 import UIKit
 
-class GraphViewController: UIViewController {
+class GraphViewController: UIViewController, GraphViewDataSource {
 
+    @IBOutlet weak var graphView: GraphView! {
+        didSet {
+            graphView.dataSource = self
+        }
+    }
+    
+    var function: ((CGFloat) -> Double)?
+    
+    func y(x: CGFloat) -> CGFloat? {
+        if let function = function {
+            return CGFloat(function(x))
+        }
+        return nil
+    }
+    
+
+    
+    /*private var brain = CalculatorBrain()
+    typealias PropertyList = AnyObject
+    var program: PropertyList {
+        get {
+            return brain.program
+        }
+        set {
+            brain.program = newValue
+        }
+    }*/
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

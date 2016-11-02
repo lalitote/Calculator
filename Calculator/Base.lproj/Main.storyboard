@@ -423,7 +423,7 @@
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="usc-6L-pza">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A0S-y8-XkH" customClass="GraphView" customModule="Calculator" customModuleProvider="target">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -438,6 +438,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="l9O-7x-1ap"/>
+                    <connections>
+                        <outlet property="graphView" destination="A0S-y8-XkH" id="xXs-Oj-COA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSa-3m-j6Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

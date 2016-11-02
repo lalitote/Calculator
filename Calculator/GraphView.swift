@@ -42,8 +42,8 @@ class GraphView: UIView {
         if resetOrigin {
             origin = convert(center, from: superview)
         }
-        //let axesDrawer = AxesDrawer(contentScaleFactor: contentScaleFactor)
-        //axesDrawer.drawAxesInRect(bounds: bounds, origin: origin, pointsPerUnit: scale)
+        let axesDrawer = AxesDrawer(contentScaleFactor: contentScaleFactor)
+        axesDrawer.drawAxesInRect(bounds: bounds, origin: origin, pointsPerUnit: scale)
         
         color.set()
         let path = UIBezierPath()

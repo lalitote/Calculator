@@ -14,7 +14,7 @@ class AxesDrawer
         static let HashmarkSize: CGFloat = 6
     }
     
-    var color = UIColor.red
+    var color = UIColor.blue
     var minimumPointsPerHashmark: CGFloat = 40
     var contentScaleFactor: CGFloat = 1 // set this from UIView's contentScaleFactor to position axes with maximum accuracy
     
@@ -84,7 +84,7 @@ class AxesDrawer
             
             // now create a bounding box inside whose edges those four hashmarks lie
             let bboxSize = pointsPerHashmark * startingHashmarkRadius * 2
-            let bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize))
+            var bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize))
             // formatter for the hashmark labels
             let formatter = NumberFormatter()
             formatter.maximumFractionDigits = Int(-log10(Double(unitsPerHashmark)))
@@ -107,7 +107,7 @@ class AxesDrawer
                     drawHashmarkAtLocation(location: bottomHashmarkPoint, .Left("-\(label)"))
                 }
                 
-                bbox.insetBy(dx: -pointsPerHashmark, dy: -pointsPerHashmark)
+                bbox = bbox.insetBy(dx: -pointsPerHashmark, dy: -pointsPerHashmark)
             }
         }
     }

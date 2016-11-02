@@ -17,7 +17,7 @@ class GraphView: UIView {
     weak var dataSource: GraphViewDataSource?
     
     var lineWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
-    var color: UIColor = UIColor.blue { didSet { setNeedsDisplay() } }
+    var color: UIColor = UIColor.black { didSet { setNeedsDisplay() } }
     
     private var resetOrigin: Bool = true {
         didSet {
@@ -42,8 +42,8 @@ class GraphView: UIView {
         if resetOrigin {
             origin = convert(center, from: superview)
         }
-        let axesDrawer = AxesDrawer(contentScaleFactor: contentScaleFactor)
-        axesDrawer.drawAxesInRect(bounds: bounds, origin: origin, pointsPerUnit: scale)
+        //let axesDrawer = AxesDrawer(contentScaleFactor: contentScaleFactor)
+        //axesDrawer.drawAxesInRect(bounds: bounds, origin: origin, pointsPerUnit: scale)
         
         color.set()
         let path = UIBezierPath()

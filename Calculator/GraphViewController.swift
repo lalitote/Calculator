@@ -25,21 +25,6 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         return nil
     }
     
-
-    
-    /*private var brain = CalculatorBrain()
-    typealias PropertyList = AnyObject
-    var program: PropertyList {
-        get {
-            return brain.program
-        }
-        set {
-            brain.program = newValue
-        }
-    }*/
-    
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

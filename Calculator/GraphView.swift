@@ -39,6 +39,18 @@ class GraphView: UIView {
             setNeedsDisplay()
         }
     }
+    
+    func changeScale(recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .changed, .ended:
+            scale *= recognizer.scale
+            contentScaleFactor *= recognizer.scale
+            recognizer.scale = 1.0
+        default:
+            break
+        }
+    }
+    
 
     override func draw(_ rect: CGRect) {
         if resetOrigin {

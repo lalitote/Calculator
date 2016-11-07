@@ -1,4 +1,4 @@
-//
+ //
 //  GraphView.swift
 //  Calculator
 //
@@ -51,6 +51,25 @@ class GraphView: UIView {
         }
     }
     
+    func changeOrigin(recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .ended {
+            resetOrigin = false
+            origin = recognizer.location(in: self)
+        }
+    }
+    
+    
+    func moveGraph(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .ended: fallthrough
+        case .changed:
+            let translation = recognizer.translation(in: self)
+            origin.x += translation.x
+            origin.y += translation.y
+            recognizer.setTranslation(CGPoint.zero, in: self)
+        default: break
+        }
+    }
 
     override func draw(_ rect: CGRect) {
         if resetOrigin {

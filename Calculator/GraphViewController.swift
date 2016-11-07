@@ -18,8 +18,15 @@ class GraphViewController: UIViewController, GraphViewDataSource {
                 target: graphView, action: #selector(GraphView.changeScale(recognizer:))
             ))
             
+            graphView.addGestureRecognizer(UIPanGestureRecognizer(target: graphView, action: #selector(graphView.moveGraph(recognizer:))))
+            
+            let doubleTap = UITapGestureRecognizer(target: graphView, action: #selector(graphView.changeOrigin(recognizer:)))
+            doubleTap.numberOfTapsRequired = 2
+            graphView.addGestureRecognizer(doubleTap)
+            
         }
     }
+    
     
     
     var function: ((CGFloat) -> Double)?

@@ -14,12 +14,20 @@ class CalculatorViewController: UIViewController {
     
     @IBOutlet weak var history: UILabel!
     
+    @IBOutlet weak var showGraphButton: UIButton!
+    
     fileprivate var userIsInTheMiddleOfTypingANumber = false
+    
+    private func updateView() {
+        displayValue = brain.result
+        showGraphButton.isEnabled = !brain.isPartialResult
+    }
     
     @IBAction fileprivate func clearEverything() {
         displayValue = nil
         brain.clear()
         brain.variableValues = [:]
+        showGraphButton.isEnabled = false
     }
     
     @IBAction func backspace(_ sender: UIButton) {
@@ -101,7 +109,8 @@ class CalculatorViewController: UIViewController {
         if let mathematicalSymbol = sender.currentTitle {
             brain.performOperation(mathematicalSymbol)
         }
-        displayValue = brain.result
+        //displayValue = brain.result
+        updateView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

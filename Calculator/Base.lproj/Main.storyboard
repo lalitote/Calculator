@@ -52,11 +52,14 @@
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="sr3-xH-FHc">
                                         <subviews>
-                                            <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDo-Sk-ik4">
+                                            <button opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDo-Sk-ik4">
                                                 <color key="backgroundColor" red="0.97473958329999999" green="0.97473958329999999" blue="0.97473958329999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="0ZD-DV-8J3"/>
+                                                    <constraint firstAttribute="width" constant="56" id="nX5-7X-FMw"/>
+                                                </constraints>
                                                 <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                                                <state key="normal" title="graph"/>
+                                                <state key="normal" backgroundImage="GraphActiveImage"/>
                                                 <connections>
                                                     <segue destination="jYm-06-BVc" kind="showDetail" identifier="Show Graph" id="NW8-sO-239"/>
                                                 </connections>
@@ -68,6 +71,9 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="iED-VK-OPg" firstAttribute="leading" secondItem="FDo-Sk-ik4" secondAttribute="trailing" constant="2" id="LFU-XE-GtY"/>
+                                        </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="OB8-sz-vCn">
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -140,7 +146,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9m-Vl-JC2">
-                                                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.75686274509803919" green="0.75686274509803919" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="cos"/>
                                                         <connections>
@@ -407,6 +413,7 @@
                     <connections>
                         <outlet property="display" destination="OB8-sz-vCn" id="QL5-TI-QyX"/>
                         <outlet property="history" destination="iED-VK-OPg" id="9ZA-1s-KsQ"/>
+                        <outlet property="showGraphButton" destination="FDo-Sk-ik4" id="YvJ-SE-RiQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -466,6 +473,9 @@
             <point key="canvasLocation" x="-31.199999999999999" y="1292.2038980509747"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="GraphActiveImage" width="320" height="240"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="NW8-sO-239"/>
     </inferredMetricsTieBreakers>

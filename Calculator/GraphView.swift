@@ -52,12 +52,28 @@ class GraphView: UIView {
         }
     }
     
+    var snapshot: UIView?
+    
     func changeScale(recognizer: UIPinchGestureRecognizer) {
         switch recognizer.state {
-        case .changed, .ended:
-            scale *= recognizer.scale
-            contentScaleFactor *= recognizer.scale
+        case .began:
+            snapshot = self.snapshotView(afterScreenUpdates: false)
+            snapshot!.alpha = 0.8
+            self.addSubview(snapshot!)
+        case .changed:
+            let touch = recognizer.location(in: self)
+            snapshot!.frame.size.height *= recognizer.scale
+            snapshot!.frame.size.width *= recognizer.scale
+            snapshot!.frame.origin.x = snapshot!.frame.origin.x * recognizer.scale + (1 - recognizer.scale) * touch.x
+            snapshot!.frame.origin.y = snapshot!.frame.origin.y * recognizer.scale + (1 - recognizer.scale) * touch.y
             recognizer.scale = 1.0
+        case .ended:
+            let changedScale = snapshot!.frame.height / self.frame.height
+            scale *= changedScale
+            origin.x = origin.x * changedScale + snapshot!.frame.origin.x
+            origin.y = origin.y * changedScale + snapshot!.frame.origin.y
+            snapshot!.removeFromSuperview()
+            snapshot = nil
         default:
             break
         }
@@ -72,12 +88,20 @@ class GraphView: UIView {
     
     func moveGraph(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-        case .ended: fallthrough
+        case .began:
+            snapshot = self.snapshotView(afterScreenUpdates: false)
+            snapshot!.alpha = 0.8
+            self.addSubview(snapshot!)
         case .changed:
             let translation = recognizer.translation(in: self)
-            origin.x += translation.x
-            origin.y += translation.y
+            snapshot!.center.x += translation.x
+            snapshot!.center.y += translation.y
             recognizer.setTranslation(CGPoint.zero, in: self)
+        case .ended:
+            origin.x += snapshot!.frame.origin.x
+            origin.y += snapshot!.frame.origin.y
+            snapshot!.removeFromSuperview()
+            snapshot = nil
         default: break
         }
     }

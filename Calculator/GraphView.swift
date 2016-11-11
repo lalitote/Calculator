@@ -36,6 +36,7 @@ class GraphView: UIView {
     }
     var origin: CGPoint = CGPoint() {
         didSet {
+            resetOrigin = false
             setNeedsDisplay()
         }
     }

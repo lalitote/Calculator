@@ -15,18 +15,84 @@ class GraphViewController: UIViewController, GraphViewDataSource {
             graphView.dataSource = self
             
             graphView.addGestureRecognizer(UIPinchGestureRecognizer(
-                target: graphView, action: #selector(GraphView.changeScale(recognizer:))
+                target: self, action: #selector(changeScale(recognizer:))
             ))
             
-            graphView.addGestureRecognizer(UIPanGestureRecognizer(target: graphView, action: #selector(graphView.moveGraph(recognizer:))))
+            graphView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(moveGraph(recognizer:))))
             
-            let doubleTap = UITapGestureRecognizer(target: graphView, action: #selector(graphView.changeOrigin(recognizer:)))
+            let doubleTap = UITapGestureRecognizer(target: self, action: #selector(changeOrigin(recognizer:)))
             doubleTap.numberOfTapsRequired = 2
             graphView.addGestureRecognizer(doubleTap)
+            
+            if !resetOrigin {
+                graphView.origin = origin
+            }
+            graphView.scale = scale
             
         }
     }
     
+    private var resetOrigin: Bool {
+        get {
+            if let originArray = defaults.object(forKey: Keys.Origin) as? [CGFloat] {
+                return false
+            }
+            return true
+        }
+        
+    }
+    
+    private struct Keys {
+        static let Scale = "GraphViewController.Scale"
+        static let Origin = "GraphViewController.Origin"
+    }
+    
+    private let defaults = UserDefaults.standard
+    
+    var scale: CGFloat {
+        get {
+            return defaults.object(forKey: Keys.Scale) as? CGFloat ?? 50.0
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.Scale)
+        }
+    }
+    
+    private var origin: CGPoint {
+        get {
+            var origin = CGPoint()
+            if let originArray = defaults.object(forKey: Keys.Origin) as? [CGFloat] {
+                origin.x = originArray.first!
+                origin.y = originArray.last!
+            }
+            return origin
+        }
+        set {
+            defaults.set([newValue.x, newValue.y], forKey: Keys.Origin)
+        }
+    }
+    
+    func changeScale(recognizer: UIPinchGestureRecognizer) {
+        graphView.changeScale(recognizer: recognizer)
+        if recognizer.state == .ended {
+            scale = graphView.scale
+            origin = graphView.origin
+        }
+    }
+    
+    func moveGraph(recognizer: UIPanGestureRecognizer) {
+        graphView.moveGraph(recognizer: recognizer)
+        if recognizer.state == .ended {
+            origin = graphView.origin
+        }
+    }
+    
+    func changeOrigin(recognizer: UITapGestureRecognizer) {
+        graphView.changeOrigin(recognizer: recognizer)
+        if recognizer.state == .ended {
+            origin = graphView.origin
+        }
+    }
     
     
     var function: ((CGFloat) -> Double)?
@@ -37,7 +103,7 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         }
         return nil
     }
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -47,9 +113,9 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     
-    
+    }
 
-    /*
+   /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -59,5 +125,5 @@ class GraphViewController: UIViewController, GraphViewDataSource {
     }
     */
 
-    }
+    
 }

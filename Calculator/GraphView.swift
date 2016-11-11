@@ -20,13 +20,13 @@ class GraphView: UIView {
     var lineWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
     var color: UIColor = UIColor.black { didSet { setNeedsDisplay() } }
     
-    private var resetOrigin: Bool = true {
+    private var originRelativeToCenter: CGPoint = CGPoint() {
         didSet {
-            if resetOrigin {
-                setNeedsDisplay()
-            }
+            setNeedsDisplay()
         }
     }
+    
+    private var geometryReady: Bool = false
     
     @IBInspectable
     var scale: CGFloat = 50 {
@@ -34,10 +34,21 @@ class GraphView: UIView {
             setNeedsDisplay()
         }
     }
-    var origin: CGPoint = CGPoint() {
-        didSet {
-            resetOrigin = false
-            setNeedsDisplay()
+    var origin: CGPoint {
+        get {
+            var origin = originRelativeToCenter
+            if geometryReady {
+                origin.x += center.x
+                origin.y += center.y
+            }
+            return origin
+        } set {
+            var origin = newValue
+            if geometryReady {
+                origin.x -= center.x
+                origin.y -= center.y
+            }
+            originRelativeToCenter = origin
         }
     }
     
@@ -54,7 +65,6 @@ class GraphView: UIView {
     
     func changeOrigin(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
-            resetOrigin = false
             origin = recognizer.location(in: self)
         }
     }
@@ -73,8 +83,10 @@ class GraphView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        if resetOrigin {
-            origin = convert(center, from: superview)
+        if !geometryReady && originRelativeToCenter != CGPoint.zero {
+            var originHelper = origin
+            geometryReady = true
+            origin = originHelper
         }
         let axesDrawer = AxesDrawer(contentScaleFactor: contentScaleFactor)
         axesDrawer.drawAxesInRect(bounds: bounds, origin: origin, pointsPerUnit: scale)
